@@ -1,53 +1,61 @@
-Tech Challenge - Fase 1: API de Consulta de Livros
-1. Descrição do Projeto
+Entendido. Sem frescura.
+
+A culpa é da formatação do chat. Vou te mandar o texto puro (o código-fonte) do README.md.
+
+Sua Tarefa:
+
+Copie TUDO que está dentro do bloco cinza abaixo (clique no ícone de "Copiar" no canto, se houver).
+
+Abra seu arquivo README.md.
+
+Apague TUDO o que está nele.
+
+Cole o texto que você copiou.
+
+Salve e envie para o GitHub (git add ., git commit -m "readme final", git push).
+
+Plaintext
+
+# Tech Challenge - Fase 1: API de Consulta de Livros
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://tech-challenge-livros.onrender.com)
+
+## 1. Descrição do Projeto
+
 Este projeto é a resposta ao Tech Challenge da Fase 1 do curso de Machine Learning Engineering. O objetivo principal é construir um pipeline de dados completo, desde a extração (scraping) até a disponibilização via uma API RESTful pública.
 
 A aplicação coleta dados do site "Books to Scrape", processa essas informações e as armazena em um arquivo CSV. Em seguida, uma API desenvolvida com FastAPI lê esses dados e os expõe através de endpoints públicos para que possam ser consumidos por cientistas de dados, serviços de recomendação ou qualquer aplicação futura.
 
-2. Diagrama de Arquitetura (Plano Arquitetural)
+## 2. Diagrama de Arquitetura (Plano Arquitetural)
+
 O pipeline de dados e a arquitetura da aplicação seguem um fluxo simples e escalável:
 
-+-------------------+      +------------------+      +---------------+      +-----------------+      +---------------+
-|                   |      |                  |      |               |      |                 |      |               |
-|  Books to Scrape  |----->|  Script (Scraper)  |----->|  data/books.csv |----->|  API (FastAPI)  |----->|  Cliente (Web/ |
-|   (Fonte Externa) |      |  (scripts/scraper.py)|      |  (Armazenamento)  |      | (api/main.py)   |      |   Cientista)  |
-|                   |      |                  |      |               |      |                 |      |               |
-+-------------------+      +------------------+      +---------------+      +-----------------+      +---------------+
-         |                        |                          |                      |                      |
-     1. Extração              2. Transformação           3. Carga/Persistência       4. Serviço (API)         5. Consumo
-   (Web Scraping)           (Limpeza, Estruturação)        (Arquivo Local)         (Endpoints RESTful)    (Requests HTTP)
+http://googleusercontent.com/image_generation_content/0
 
-Ingestão: O script scripts/scraper.py acessa o site books.toscrape.com e extrai os dados de todos os livros.
 
-Processamento/Armazenamento: Os dados são limpos, estruturados (título, preço, rating, etc.) e salvos localmente no arquivo data/books.csv.
 
-API: A API FastAPI (api/main.py) é inicializada e carrega o CSV para a memória usando o Pandas. Ela é responsável por servir os dados.
+* **Ingestão:** O script `scripts/scraper.py` acessa o site `books.toscrape.com` e extrai os dados de todos os livros.
+* **Processamento/Armazenamento:** Os dados são limpos, estruturados (título, preço, rating, etc.) e salvos localmente no arquivo `data/books.csv`.
+* **API:** A API FastAPI (`api/main.py`) é inicializada e carrega o CSV para a memória usando o Pandas. Ela é responsável por servir os dados.
+* **Consumo:** A API é "deployada" publicamente no Render e pode ser consumida por cientistas de dados ou outras aplicações através de requisições HTTP.
 
-Consumo: A API é "deployada" publicamente no Render e pode ser consumida por cientistas de dados ou outras aplicações através de requisições HTTP.
+## 3. Tecnologias Utilizadas
 
-3. Tecnologias Utilizadas
-Python 3.x
+* **Python 3.x**
+* **FastAPI:** Para a construção da API RESTful e documentação Swagger automática.
+* **Uvicorn:** Para servir a aplicação FastAPI.
+* **Pandas:** Para manipulação e leitura eficiente do arquivo CSV.
+* **Requests:** Para fazer as requisições HTTP during o scraping.
+* **BeautifulSoup4:** Para fazer o parsing do HTML do site.
+* **Render:** Para o deploy público da aplicação.
 
-FastAPI: Para a construção da API RESTful e documentação Swagger automática.
+## 4. Instalação e Execução Local
 
-Uvicorn: Para servir a aplicação FastAPI.
-
-Pandas: Para manipulação e leitura eficiente do arquivo CSV.
-
-Requests: Para fazer as requisições HTTP during o scraping.
-
-BeautifulSoup4: Para fazer o parsing do HTML do site.
-
-Render: Para o deploy público da aplicação.
-
-4. Instalação e Execução Local
 Siga os passos abaixo para executar o projeto em sua máquina local.
 
-1. Clonar o Repositório:
-
-Bash
-
-git clone https://github.com/WalterDeAlmeidaLira/TechChallenge.git
+**1. Clonar o Repositório:**
+```bash
+git clone [https://github.com/WalterDeAlmeidaLira/TechChallenge.git](https://github.com/WalterDeAlmeidaLira/TechChallenge.git)
 cd TechChallenge
 2. Criar e Ativar o Ambiente Virtual:
 
@@ -66,7 +74,7 @@ source venv/bin/activate
 Bash
 
 pip install -r requirements.txt
-4. Executar o Web Scraper:(Este passo é necessário para gerar o arquivo data/books.csv.)
+4. Executar o Web Scraper: (Este passo é necessário para gerar o arquivo data/books.csv.)
 
 Bash
 
@@ -109,8 +117,8 @@ JSON
     "rating": 3,
     "availability": 22,
     "category": "Poetry",
-    "image_url": "https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg",
-    "book_url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    "image_url": "[https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg](https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg)",
+    "book_url": "[https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html](https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html)"
   },
   {
     "id": 2,
@@ -118,8 +126,8 @@ JSON
     "price": 53.74,
     "availability": 20,
     "category": "Historical Fiction",
-    "image_url": "https://books.toscrape.com/media/cache/26/0c/260c6ae16bce31c8f8c95daddd9f4a1c.jpg",
-    "book_url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html"
+    "image_url": "[https://books.toscrape.com/media/cache/26/0c/260c6ae16bce31c8f8c95daddd9f4a1c.jpg](https://books.toscrape.com/media/cache/26/0c/260c6ae16bce31c8f8c95daddd9f4a1c.jpg)",
+    "book_url": "[https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html](https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html)"
   }
 ]
 GET /api/v1/books/{id}
@@ -138,8 +146,8 @@ JSON
   "rating": 3,
   "availability": 22,
   "category": "Poetry",
-  "image_url": "https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg",
-  "book_url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+  "image_url": "[https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg](https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg)",
+  "book_url": "[https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html](https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html)"
 }
 Exemplo de Resposta (Erro 404):
 
@@ -153,7 +161,7 @@ Busca livros por título e/ou categoria. Os parâmetros são opcionais e case-in
 
 Exemplo de Chamada (por Título): .../api/v1/books/search?title=Light
 
-Exemplo de Chamada (por Categoria): .../api/v1/books/search?category=Poetry
+Exemplo de Chamada (por Categoria): .../A/api/v1/books/search?category=Poetry
 
 Exemplo de Chamada (Combinada): .../api/v1/books/search?title=Light&category=Poetry
 
@@ -169,8 +177,8 @@ JSON
     "rating": 3,
     "availability": 22,
     "category": "Poetry",
-    "image_url": "https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg",
-    "book_url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    "image_url": "[https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg](https://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg)",
+    "book_url": "[https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html](https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html)"
   }
 ]
 GET /api/v1/categories
