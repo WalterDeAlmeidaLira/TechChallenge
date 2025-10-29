@@ -23,6 +23,7 @@ def load_data():
         print(f"Erro: Arquivo {DATA_PATH} não encontrado.")
         df_books = pd.DataFrame()
 
+
 @app.on_event("startup")
 async def startup_event():
     load_data()
@@ -83,10 +84,52 @@ async def search_books(
 
 
 
+@app.get("/api/v1/books/top-rated", tags=["Livros"])
+async def get_top_rated_books():
+    """
+    Lista os livros com a melhor avaliação (rating mais alto).
+    """
+    check_data_loaded()
+    
+    # Encontra qual é a maior avaliação (ex: 5)
+    max_rating = df_books['rating'].max()
+    
+    # Filtra o DataFrame
+    top_rated_df = df_books[df_books['rating'] == max_rating]
+    
+    return dataframe_to_json(top_rated_df)
+
+
+@app.get("/api/v1/books/price-range", tags=["Livros"])
+async def get_books_by_price_range(
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None
+):
+    """
+    Filtra livros dentro de uma faixa de preço específica (min e/ou max).
+    """
+    check_data_loaded()
+    
+    result_df = df_books.copy()
+    
+    if min_price is not None:
+        result_df = result_df[result_df['price'] >= min_price]
+        
+    if max_price is not None:
+        result_df = result_df[result_df['price'] <= max_price]
+
+    if result_df.empty:
+        return {"message": "Nenhum livro encontrado nessa faixa de preço."}
+        
+    return dataframe_to_json(result_df)
+
+
+
 @app.get("/api/v1/books/{book_id}", tags=["Livros"])
 async def get_book_by_id(book_id: int):
     """
     Retorna detalhes completos de um livro específico pelo ID.
+    (Este endpoint DEVE vir depois dos outros '/books/...')
     """
     check_data_loaded()
     
@@ -102,7 +145,6 @@ async def get_book_by_id(book_id: int):
         raise HTTPException(status_code=500, detail=f"Erro interno ao processar a solicitação: {e}")
 
 
-
 @app.get("/api/v1/categories", tags=["Categorias"])
 async def get_all_categories():
     """
@@ -113,6 +155,54 @@ async def get_all_categories():
     categories = df_books['category'].unique().tolist()
     
     return {"categories": categories, "total": len(categories)}
+
+
+@app.get("/api/v1/stats/overview", tags=["Stats"])
+async def get_stats_overview():
+    """
+    Retorna estatísticas gerais da coleção: total de livros, preço médio e distribuição de ratings.
+    """
+    check_data_loaded()
+    
+    total_livros = len(df_books)
+    preco_medio = round(df_books['price'].mean(), 2)
+    
+    # Conta a ocorrência de cada rating (ex: {5: 200, 4: 150, ...})
+    # Converte o 'rating' (int64) para string para ser uma chave JSON válida
+    distribuicao_ratings = df_books['rating'].value_counts().reset_index()
+    distribuicao_ratings.columns = ['rating', 'count']
+    distribuicao_ratings_dict = {str(row['rating']): row['count'] for index, row in distribuicao_ratings.iterrows()}
+
+    
+    return {
+        "total_livros": total_livros,
+        "preco_medio_geral": preco_medio,
+        "distribuicao_ratings": distribuicao_ratings_dict
+    }
+
+
+@app.get("/api/v1/stats/categories", tags=["Stats"])
+async def get_stats_by_category():
+    """
+    Retorna estatísticas detalhadas por categoria: contagem de livros, preço médio, min e max.
+    """
+    check_data_loaded()
+    
+    # Agrupa por categoria e calcula as estatísticas
+    stats = df_books.groupby('category').agg(
+        total_livros=('title', 'count'),
+        preco_medio=('price', 'mean'),
+        preco_min=('price', 'min'),
+        preco_max=('price', 'max')
+    ).reset_index() # Transforma o índice 'category' em coluna
+    
+    # Arredonda o preço médio
+    stats['preco_medio'] = stats['preco_medio'].round(2)
+    
+    # Converte o DataFrame de estatísticas para JSON
+    return stats.to_dict('records')
+
+
 
 if __name__ == "__main__":
     import uvicorn
