@@ -14,8 +14,8 @@ Esta seção detalha a arquitetura do projeto, cobrindo o pipeline de dados, pla
 
 ### Pipeline de Dados: Ingestão → Processamento → API → Consumo
 
+link para o pdf com arquitetura:
 ![Diagrama de Arquitetura](data/diagrama.pdf) 
-*(Nota: Certifique-se que o seu arquivo 'diagrama.pdf' ou 'diagrama.png' está na pasta 'data/' do seu projeto).*
 
 * **Explicação do Fluxo:**
     * **Ingestão:** O script `scripts/scraper.py` acessa a fonte externa (`books.toscrape.com`) e extrai os dados brutos.
