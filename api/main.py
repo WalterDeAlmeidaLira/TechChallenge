@@ -163,17 +163,21 @@ async def get_stats_overview():
     Retorna estatísticas gerais da coleção: total de livros, preço médio e distribuição de ratings.
     """
     check_data_loaded()
-    
-    total_livros = len(df_books)
-    preco_medio = round(df_books['price'].mean(), 2)
-    
-    # Conta a ocorrência de cada rating (ex: {5: 200, 4: 150, ...})
-    # Converte o 'rating' (int64) para string para ser uma chave JSON válida
+
+    total_livros = int(len(df_books)) # Converte para int (só por garantia)
+    preco_medio = round(df_books['price'].mean(), 2) # round() já converte para float
+
+    # Conta a ocorrência de cada rating
     distribuicao_ratings = df_books['rating'].value_counts().reset_index()
     distribuicao_ratings.columns = ['rating', 'count']
-    distribuicao_ratings_dict = {str(row['rating']): row['count'] for index, row in distribuicao_ratings.iterrows()}
 
-    
+    # --- CORREÇÃO AQUI ---
+    # Convertemos o row['count'] (numpy.int64) para int() nativo
+    distribuicao_ratings_dict = {
+        str(row['rating']): int(row['count']) 
+        for index, row in distribuicao_ratings.iterrows()
+    }
+
     return {
         "total_livros": total_livros,
         "preco_medio_geral": preco_medio,

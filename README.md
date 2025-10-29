@@ -70,6 +70,8 @@ Esta API é a **Fase 1** (servir dados de treino). O plano de integração com M
     * Um aplicativo enviaria o ID de um livro ou um perfil de usuário para este novo endpoint.
     * A API, então, usaria o modelo carregado para **prever** e **retornar** uma lista de livros recomendados (cumprindo os requisitos bônus de ML-Ready).
 
+![Diagrama de Arquitetura](data/diagrama.pdf)
+
 ## 3. Tecnologias Utilizadas
 
 * **Python 3.x**
