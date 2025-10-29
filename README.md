@@ -52,7 +52,7 @@ O objetivo principal desta API é servir como a fonte de dados "limpa" para a eq
 * **Análise Exploratória (EDA):** Um Cientista de Dados pode consumir o endpoint `GET /api/v1/books` diretamente no Python para carregar todos os dados em um DataFrame Pandas e iniciar sua análise:
     ```python
     import pandas as pd
-    url = "[https://tech-challenge-livros.onrender.com/api/v1/books](https://tech-challenge-livros.onrender.com/api/v1/books)"
+    url = "https://tech-challenge-livros.onrender.com/api/v1/books"
     df_livros = pd.read_json(url)
     print(df_livros.describe())
     print(df_livros['category'].value_counts())
