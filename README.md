@@ -296,4 +296,4 @@ Link do Deploy (Render): https://tech-challenge-livros.onrender.com
 
 Link da Documentação (Swagger): https://tech-challenge-livros.onrender.com/docs
 
-Link do Vídeo (Apresentação):
+Link do Vídeo (Apresentação): https://youtu.be/vQRFxxoRr8M
